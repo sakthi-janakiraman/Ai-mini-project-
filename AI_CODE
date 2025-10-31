@@ -1,0 +1,116 @@
+# ------------------------------------------------------------
+# STUDENT RESULT CLASSIFICATION SYSTEM
+# ------------------------------------------------------------
+# AIM:
+#     To classify students as Pass or Fail based on Attendance,
+#     Internal Marks, and Final Marks using simple AI logic.
+# ------------------------------------------------------------
+
+# Step 1: Define Student Data
+# ------------------------------------------------------------
+students = [
+    {"Name": "Arun", "Attendance": 85, "Internal_Marks": 78, "Final_Marks": 82},
+    {"Name": "Bala", "Attendance": 60, "Internal_Marks": 55, "Final_Marks": 50},
+    {"Name": "Chitra", "Attendance": 75, "Internal_Marks": 68, "Final_Marks": 70},
+    {"Name": "Deepa", "Attendance": 45, "Internal_Marks": 42, "Final_Marks": 35},
+    {"Name": "Elango", "Attendance": 90, "Internal_Marks": 82, "Final_Marks": 88},
+    {"Name": "Fathima", "Attendance": 55, "Internal_Marks": 48, "Final_Marks": 45},
+    {"Name": "Ganesh", "Attendance": 80, "Internal_Marks": 74, "Final_Marks": 75},
+    {"Name": "Harini", "Attendance": 40, "Internal_Marks": 39, "Final_Marks": 40},
+    {"Name": "Ishaan", "Attendance": 78, "Internal_Marks": 70, "Final_Marks": 73},
+    {"Name": "Jaya", "Attendance": 66, "Internal_Marks": 60, "Final_Marks": 65}
+]
+
+# Step 2: Define classification function
+# ------------------------------------------------------------
+def classify_student(attendance, internal, final):
+    """
+    Function to classify students as Pass or Fail.
+    The rule is based on simple threshold values:
+    - Attendance must be at least 70%
+    - Internal marks must be 50 or more
+    - Final exam marks must be 60 or more
+    """
+    if attendance >= 70:
+        if internal >= 50:
+            if final >= 60:
+                return "Pass"
+            else:
+                return "Fail"
+        else:
+            return "Fail"
+    else:
+        return "Fail"
+
+
+# Step 3: Function to display student data neatly
+# ------------------------------------------------------------
+def display_header():
+    print("\n🎓 STUDENT RESULT CLASSIFICATION SYSTEM")
+    print("-" * 65)
+    print("{:<10} {:<12} {:<15} {:<15} {:<10}".format(
+        "Name", "Attendance", "Internal_Marks", "Final_Marks", "Result"
+    ))
+    print("-" * 65)
+
+
+# Step 4: Display each student's result
+# ------------------------------------------------------------
+def display_results(students):
+    """
+    Loops through the student list and prints
+    their marks along with classification result.
+    """
+    for student in students:
+        name = student["Name"]
+        attendance = student["Attendance"]
+        internal = student["Internal_Marks"]
+        final = student["Final_Marks"]
+        result = classify_student(attendance, internal, final)
+
+        # print each student's details in a table format
+        print("{:<10} {:<12} {:<15} {:<15} {:<10}".format(
+            name, attendance, internal, final, result
+        ))
+
+
+# Step 5: Display analysis summary
+# ------------------------------------------------------------
+def display_summary(students):
+    """
+    Displays number of students who passed and failed.
+    This gives an overall summary of the class performance.
+    """
+    passed = 0
+    failed = 0
+    for student in students:
+        result = classify_student(student["Attendance"],
+                                  student["Internal_Marks"],
+                                  student["Final_Marks"])
+        if result == "Pass":
+            passed += 1
+        else:
+            failed += 1
+
+    total = len(students)
+    print("-" * 65)
+    print(f"Total Students : {total}")
+    print(f"Passed          : {passed}")
+    print(f"Failed          : {failed}")
+    print("-" * 65)
+
+
+# Step 6: Main Program Execution
+# ------------------------------------------------------------
+def main():
+    display_header()
+    display_results(students)
+    display_summary(students)
+    print("\n✅ Classification Completed Successfully!\n")
+    print("This simple AI-based program uses rule-based logic instead of complex ML models.")
+    print("Each student's result is predicted using manually set conditions.\n")
+
+
+# Run the program
+if __name__ == "__main__":
+    main()
